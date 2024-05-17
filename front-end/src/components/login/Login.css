@@ -1,0 +1,81 @@
+.login-main-body {
+  height: 100vh;
+  width: 100%;
+  /* background-color: red; */
+  background: url("./login.jpg");
+  background-position: center;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-sub-body {
+  height: 400px;
+  width: 350px;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(245, 245, 245);
+  box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.468);
+  border-radius: 30px;
+}
+.login-form {
+  height: 85%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  /* background-    color: antiquewhite; */
+}
+.login-form-title {
+  height: 40px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  font-weight: 600;
+
+  font-family: system-ui;
+  /* background-color: rgb(255, 242, 0); */
+}
+.login-form-input {
+  height: 45px;
+  width: 230px;
+  padding: 0 20px;
+  border: 1px solid rgb(0, 185, 0);
+  font-size: 1.1rem;
+  border-radius: 50px;
+}
+.login-form-input::placeholder {
+  font-size: 1rem;
+}
+.login-form-input:focus {
+  outline: none;
+}
+.login-form-btn {
+  height: 45px;
+  width: 270px;
+  background-color: rgb(49, 123, 0);
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 50px;
+}
+.login-register-link {
+  height: 30px;
+  width: 100%;
+  color: rgb(11, 50, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: system-ui;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
