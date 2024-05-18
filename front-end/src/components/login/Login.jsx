@@ -4,23 +4,26 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
-  const [loginformInput, setLoginForminput] = useState({});
+  const [loginformInput, setLoginForminput] = useState([]); //Login form Input Handler
+
+  ///for form Input
   const formDataHandler = (e) => {
     const { name, value } = e.target;
     setLoginForminput({ ...loginformInput, [name]: value });
   };
-  console.log(loginformInput);
+
+
+
+  // console.log(loginformInput);
   const formDataSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-
-    formData.append("profile", loginformInput.profile);
-
+    
     axios
       .post(`http://localhost:2222/api/login/`, loginformInput)
       .then((data) => {
         console.log(data);
         sessionStorage.setItem("token", data.data.token);
+        sessionStorage.setItem("userId", data.data.userId);
         navigate(`/home`);
       })
       .catch((err) => {
@@ -34,20 +37,7 @@ const Login = () => {
           <form action="" className="login-form" encType="multipart/form-data">
             <div className="login-form-title">LOGIN</div>
 
-            <input
-              type="file"
-              id="fileupload"
-              hidden
-              name="profile"
-              onChange={formDataHandler}
-            />
-            <label htmlFor="fileupload">
-              <img
-                src="./profile-upload.jpg"
-                alt=""
-                className="login-form-file-upload"
-              />
-            </label>
+           
             <input
               type="text"
               className="login-form-input"
@@ -56,7 +46,7 @@ const Login = () => {
               onChange={formDataHandler}
             />
             <input
-              type="text"
+              type="password"
               className="login-form-input"
               placeholder="Password"
               name="password"

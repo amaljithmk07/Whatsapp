@@ -1,20 +1,17 @@
 const mongoose = require("mongoose");
 const loginschema = new mongoose.Schema({
-  profile: {
-    type: String,
-    require: true,
-  },
+
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   role: {
     type: String,
-    require: true,
+    required: true,
   },
 });
 const Data = mongoose.model("login_DB", loginschema);

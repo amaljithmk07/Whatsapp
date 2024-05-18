@@ -3,19 +3,8 @@ const loginroutes = express.Router();
 const loginDB = require("../models/Loginschema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
-    cb(null, "../front-end/public/upload");
-  },
-  filename: function (req, res, cb) {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
-
-loginroutes.post("/", upload.single("image"), async (req, res) => {
+loginroutes.post("/", async (req, res) => {
   try {
     const lower_email = req.body.email.toLowerCase();
     const old_user = await loginDB.findOne({ email: lower_email });
@@ -39,6 +28,8 @@ loginroutes.post("/", upload.single("image"), async (req, res) => {
         message: "Password wrong",
       });
     }
+    console.log(req.body.profile);
+
 
     const token = await jwt.sign(
       {
@@ -56,7 +47,7 @@ loginroutes.post("/", upload.single("image"), async (req, res) => {
       error: false,
       message: "Login Successful",
       token: token,
-      userID: old_user._id,
+      userId: old_user._id,
       userEmail: old_user.lower_email,
       userRole: old_user.role,
     });

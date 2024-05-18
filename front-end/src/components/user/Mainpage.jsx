@@ -1,19 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Mainpage.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Mainpage = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
+  const id = sessionStorage.getItem("userId");
   const logoutHandler = () => {
     sessionStorage.clear();
     navigate("/");
   };
+
+  const [profileview, setProfileview] = useState({}); ///for logged in user profile
+
+  const [usersprofile, setUsersprofile] = useState([]); ///for all user profile
+
+  useEffect(() => {
+    // logged in user profile view
+    axios
+      .get(`http://localhost:2222/api/user/profile-view/${id}`)
+      .then((data) => {
+        setProfileview(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    ///for available users
+    axios
+      .get(`http://localhost:2222/api/user/available-user`)
+      .then((data) => {
+        setUsersprofile(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(profileview);
   return (
     <div>
       <div className="main-body">
         <div className="left-body">
           <div className="left-navbar-sec">
-            <img src="./dp1.webp" alt="" className="left-navbar-profile" />
+            {/* ///user Profile */}
+            <img
+              src={`/upload/${profileview.profile}`}
+              alt=""
+              className="left-navbar-profile"
+            />
             <div className="left-navbar-menu-sec">
               <img
                 src="/logout.png"
@@ -27,20 +61,31 @@ const Mainpage = () => {
           </div>
 
           {/* //////////////// */}
-          <div className="left-chat-body">
-            <img src="./dp2.webp" className="left-chat-profile" />
-            <div className="left-chat-name-sec">
-              <div className="left-chat-name">AMALJITH</div>
-              <div className="left-chat-msg-tick">
-                <img src="double-tick.png" alt="" style={{ height: "15px" }} />
-                AMALJITH
+
+          {usersprofile.map((data) => (
+            <div className="left-chat-body">
+              {/* <img src="./dp2.webp" className="left-chat-profile" /> */}
+              <img
+                src={`/upload/${data.profile}`}
+                className="left-chat-profile"
+              />
+              <div className="left-chat-name-sec">
+                <div className="left-chat-name">{data.name}</div>
+                <div className="left-chat-msg-tick">
+                  <img
+                    src="double-tick.png"
+                    alt=""
+                    style={{ height: "15px" }}
+                  />
+                  AMALJITH
+                </div>
+              </div>
+              <div className="left-chat-msg-count-sec">
+                08:50
+                <div className="left-chat-count">5</div>
               </div>
             </div>
-            <div className="left-chat-msg-count-sec">
-              08:50
-              <div className="left-chat-count">5</div>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* ////////////////////////////////////////// */}

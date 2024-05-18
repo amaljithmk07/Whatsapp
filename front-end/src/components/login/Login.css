@@ -12,7 +12,7 @@
   align-items: center;
 }
 .login-sub-body {
-  height: 400px;
+  height: 370px;
   width: 350px;
   display: flex;
   justify-content: start;
@@ -21,16 +21,16 @@
   background-color: rgb(245, 245, 245);
   box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.468);
   border-radius: 30px;
-  gap: 5px;
+  /* gap: 5px; */
 }
 .login-form {
   height: 85%;
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
   /* background-color: antiquewhite; */
 }
 .login-form-title {
@@ -38,19 +38,14 @@
   width: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   font-size: 1.7rem;
   font-weight: 600;
 
   font-family: system-ui;
   /* background-color: rgb(255, 242, 0); */
 }
-.login-form-file-upload {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-}
+
 .login-form-input {
   height: 45px;
   width: 230px;
