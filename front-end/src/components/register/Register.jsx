@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const [formInput, setForminput] = useState({});
@@ -54,7 +54,12 @@ const Register = () => {
               Submit
             </button>
           </form>
-          <div className="register-register-link">New User ? Register Now</div>
+          <div className="register-register-link">
+            Already a User ?
+            <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+              Login Now
+            </Link>
+          </div>
         </div>
       </div>
     </div>

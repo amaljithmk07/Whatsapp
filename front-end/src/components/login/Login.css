@@ -21,16 +21,17 @@
   background-color: rgb(245, 245, 245);
   box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.468);
   border-radius: 30px;
+  gap: 5px;
 }
 .login-form {
   height: 85%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
-  /* background-    color: antiquewhite; */
+  gap: 20px;
+  /* background-color: antiquewhite; */
 }
 .login-form-title {
   height: 40px;
@@ -43,6 +44,12 @@
 
   font-family: system-ui;
   /* background-color: rgb(255, 242, 0); */
+}
+.login-form-file-upload {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 .login-form-input {
   height: 45px;
@@ -78,4 +85,5 @@
   font-family: system-ui;
   font-size: 0.9rem;
   font-weight: 600;
+  gap: 5px;
 }

@@ -1,13 +1,26 @@
 import React from "react";
 import "./Mainpage.css";
+import { useNavigate } from "react-router-dom";
 const Mainpage = () => {
+  const navigate = useNavigate();
+  const token = sessionStorage.getItem("token");
+  const logoutHandler = () => {
+    sessionStorage.clear();
+    navigate("/");
+  };
   return (
     <div>
       <div className="main-body">
         <div className="left-body">
           <div className="left-navbar-sec">
-            <img src="vite.svg" alt="" className="left-navbar-profile" />
+            <img src="./dp1.webp" alt="" className="left-navbar-profile" />
             <div className="left-navbar-menu-sec">
+              <img
+                src="/logout.png"
+                alt=""
+                className="left-navbar-icon"
+                onClick={logoutHandler}
+              />
               <img src="/status.svg" alt="" className="left-navbar-icon" />
               <img src="menu.png" alt="" className="left-navbar-icon" />
             </div>
@@ -15,7 +28,7 @@ const Mainpage = () => {
 
           {/* //////////////// */}
           <div className="left-chat-body">
-            <div className="left-chat-profile"></div>
+            <img src="./dp2.webp" className="left-chat-profile" />
             <div className="left-chat-name-sec">
               <div className="left-chat-name">AMALJITH</div>
               <div className="left-chat-msg-tick">
@@ -34,7 +47,7 @@ const Mainpage = () => {
         <div className="right-body">
           <div className="right-navbar-sec">
             <div className="right-navbar-profile-sec">
-              <img src="vite.svg" alt="" className="right-navbar-profile" />
+              <img src="./dp2.webp" alt="" className="right-navbar-profile" />
               Amaljith{" "}
             </div>
             <div className="right-navbar-search-sec">

@@ -24,9 +24,10 @@
   align-items: center;
 }
 .left-navbar-profile {
-  height: 45px;
-  width: 45px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
+  aspect-ratio: 1/1;
   /* background-color: cyan; */
 }
 .left-navbar-menu-sec {
@@ -61,7 +62,7 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  background-color: rgb(255, 179, 179);
+  /* background-color: rgb(171, 3, 3); */
 }
 .left-chat-name-sec {
   height: 80px;

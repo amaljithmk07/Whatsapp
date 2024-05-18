@@ -3,10 +3,22 @@ const loginroutes = express.Router();
 const loginDB = require("../models/Loginschema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
 
-loginroutes.post("/", async (req, res) => {
+const storage = multer.diskStorage({
+  destination: function (req, res, cb) {
+    cb(null, "../front-end/public/upload");
+  },
+  filename: function (req, res, cb) {
+    cb(null, file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+
+loginroutes.post("/", upload.single("image"), async (req, res) => {
   try {
-    const old_user = await loginDB.findOne({ email: req.body.email });
+    const lower_email = req.body.email.toLowerCase();
+    const old_user = await loginDB.findOne({ email: lower_email });
 
     if (!old_user) {
       return res.status(400).json({
@@ -31,7 +43,7 @@ loginroutes.post("/", async (req, res) => {
     const token = await jwt.sign(
       {
         userID: old_user._id,
-        userEmail: old_user.email,
+        userEmail: old_user.lower_email,
         userRole: old_user.role,
       },
       "this_is_secret_message",
@@ -45,7 +57,7 @@ loginroutes.post("/", async (req, res) => {
       message: "Login Successful",
       token: token,
       userID: old_user._id,
-      userEmail: old_user.email,
+      userEmail: old_user.lower_email,
       userRole: old_user.role,
     });
   } catch (err) {

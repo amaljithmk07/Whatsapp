@@ -6,8 +6,10 @@ const bcrypt = require("bcryptjs");
 
 registerroutes.post("/", async (req, res) => {
   try {
+    const lower_email = req.body.email.toLowerCase();
+
     console.log(req.body);
-    const old_email = await loginDB.findOne({ email: req.body.email });
+    const old_email = await loginDB.findOne({ email: lower_email });
     if (old_email) {
       return res.status(400).json({
         success: false,
@@ -18,7 +20,7 @@ registerroutes.post("/", async (req, res) => {
     const hashedpassword = await bcrypt.hash(req.body.password, 12);
 
     const log = {
-      email: req.body.email,
+      email: lower_email,
       password: hashedpassword,
       role: 2,
     };
