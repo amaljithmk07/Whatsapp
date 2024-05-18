@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100%;
   /* background-color: red; */
-  background: url("./public/login.jpg");
+  background: url("/public/login.jpg");
   background-position: center;
   object-fit: cover;
   background-repeat: no-repeat;
