@@ -43,4 +43,46 @@ userrroutes.get("/available-user", async (req, res) => {
   }
 });
 
+///////clicking user body for chatting
+
+userrroutes.get("/select-user-for-chat/:id", async (req, res) => {
+  try {
+    const seelctedUser = await registerDB.findOne({ login_id: req.params.id });
+
+    if (seelctedUser) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: seelctedUser,
+        message: "selected users Profile view successful",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+    });
+  }
+});
+
+///////Sending Message
+
+userrroutes.get("/select-user-for-chat/:id", async (req, res) => {
+  try {
+    const seelctedUser = await registerDB.findOne({ login_id: req.params.id });
+
+    if (seelctedUser) {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: seelctedUser,
+        message: "selected users Profile view successful",
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      error: true,
+    });
+  }
+});
+
 module.exports = userrroutes;

@@ -15,6 +15,8 @@ const Mainpage = () => {
 
   const [usersprofile, setUsersprofile] = useState([]); ///for all user profile
 
+  const [selectuser, setSelectuser] = useState({}); ///clicking user body for chatting
+
   useEffect(() => {
     // logged in user profile view
     axios
@@ -31,12 +33,34 @@ const Mainpage = () => {
       .get(`http://localhost:2222/api/user/available-user`)
       .then((data) => {
         setUsersprofile(data.data.data);
+        // console.log(data.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  console.log(profileview);
+  console.log(id);
+
+  //////filter for displaying chat screen except logged user
+
+  var available_users = usersprofile.filter((data) => {
+    return data.login_id != id;
+  });
+  console.log(available_users);
+
+  ///////clicking user chat body for chatting
+
+  const selectUserforChat = (id) => {
+    axios
+      .get(`http://localhost:2222/api/user/select-user-for-chat/${id}`)
+      .then((data) => {
+        setSelectuser(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <div className="main-body">
@@ -62,8 +86,12 @@ const Mainpage = () => {
 
           {/* //////////////// */}
 
-          {usersprofile.map((data) => (
-            <div className="left-chat-body">
+          {available_users.map((data) => (
+            <div
+              className="left-chat-body"
+              key={data._id}
+              onClick={() => selectUserforChat(data.login_id)}
+            >
               {/* <img src="./dp2.webp" className="left-chat-profile" /> */}
               <img
                 src={`/upload/${data.profile}`}
@@ -92,8 +120,18 @@ const Mainpage = () => {
         <div className="right-body">
           <div className="right-navbar-sec">
             <div className="right-navbar-profile-sec">
-              <img src="./dp2.webp" alt="" className="right-navbar-profile" />
-              Amaljith{" "}
+              {/* <img src="./dp2.webp" alt="" className="right-navbar-profile" /> */}
+              <img
+                src={
+                  selectuser.profile
+                    ? `/upload/${selectuser.profile}`
+                    : "./dp2.webp"
+                }
+                alt=""
+                className="right-navbar-profile"
+              />
+              {/* Amaljith{" "} */}
+              {selectuser.name ? selectuser.name : "Amaljith"}
             </div>
             <div className="right-navbar-search-sec">
               <img src="search.png" alt="" className="right-navbar-icon" />
@@ -120,6 +158,7 @@ const Mainpage = () => {
               type="text"
               className="right-message-input"
               placeholder="Type a message here ..."
+              onChange={"sk"}
             />
             <img src="send.png" alt="" className="right-text-body-send" />
           </div>
