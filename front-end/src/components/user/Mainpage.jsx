@@ -5,7 +5,7 @@ import axios from "axios";
 const Mainpage = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
-  const id = sessionStorage.getItem("userId");
+  const currentuserId = sessionStorage.getItem("userId");
   const logoutHandler = () => {
     sessionStorage.clear();
     navigate("/");
@@ -20,7 +20,7 @@ const Mainpage = () => {
   useEffect(() => {
     // logged in user profile view
     axios
-      .get(`http://localhost:2222/api/user/profile-view/${id}`)
+      .get(`http://localhost:2222/api/user/profile-view/${currentuserId}`)
       .then((data) => {
         setProfileview(data.data.data);
       })
@@ -39,12 +39,12 @@ const Mainpage = () => {
         console.log(err);
       });
   }, []);
-  console.log(id);
+  console.log(currentuserId);
 
   //////filter for displaying chat screen except logged user
 
   var available_users = usersprofile.filter((data) => {
-    return data.login_id != id;
+    return data.login_id != currentuserId;
   });
   console.log(available_users);
 
@@ -55,6 +55,31 @@ const Mainpage = () => {
       .get(`http://localhost:2222/api/user/select-user-for-chat/${id}`)
       .then((data) => {
         setSelectuser(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // type messages and sending
+  const [messagestate, setMessagestate] = useState({});
+  const [messageDisplay, setMessagedisplay] = useState();
+
+  const messageHandler = (e) => {
+    const { name, value } = e.target;
+    setMessagestate({ ...messagestate, [name]: value });
+  };
+
+  // message sending api
+  const messageSendHandler = (id) => {
+    axios
+      .post(
+        `http://localhost:2222/api/user/send-message/${id}/${currentuserId}`,
+        messagestate
+      )
+      .then((data) => {
+        console.log(data.data.data.message);
+        setMessagedisplay(data.data.data.message);
       })
       .catch((err) => {
         console.log(err);
@@ -151,16 +176,25 @@ const Mainpage = () => {
             </div>
 
             <div className="right-message-today">TODAY</div>
+            {messageDisplay ? (
+              <div className="right-message-today">{messageDisplay}</div>
+            ) : null}
           </div>
           <div className="right-text-body-sec">
             <img src="paper-pin.png" alt="" className="right-text-body-pin" />
             <input
               type="text"
+              name="message"
               className="right-message-input"
               placeholder="Type a message here ..."
-              onChange={"sk"}
+              onChange={messageHandler}
             />
-            <img src="send.png" alt="" className="right-text-body-send" />
+            <img
+              src="send.png"
+              alt=""
+              className="right-text-body-send"
+              onClick={() => messageSendHandler(selectuser.login_id)}
+            />
           </div>
         </div>
       </div>

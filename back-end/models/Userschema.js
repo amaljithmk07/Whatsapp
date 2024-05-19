@@ -14,5 +14,5 @@ const userschema = new mongoose.Schema({
     type: String,
   },
 });
-const Data = mongoose.model("register_DB", userschema);
+const Data = mongoose.model("user_DB", userschema);
 module.exports = Data;
