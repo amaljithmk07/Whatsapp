@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Mainpage.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import BASE_URI from "../constent/Constent";
+import BASE_URI from "../constant/Constant";
 const Mainpage = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");

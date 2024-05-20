@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import BASE_URI from "../constent/Constent";
+import BASE_URI from "../constant/Constant";
 const Login = () => {
   const navigate = useNavigate();
   const [loginformInput, setLoginForminput] = useState([]); //Login form Input Handler

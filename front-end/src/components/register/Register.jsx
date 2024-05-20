@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import BASE_URI from "../constent/Constent";
+import BASE_URI from "../constant/Constant";
 const Register = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(); //preview Uploaded images

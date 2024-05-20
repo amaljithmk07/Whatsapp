@@ -183,7 +183,7 @@
   overflow-x: hidden;
   scrollbar-width: none;
   scrollbar-width: none;
-  background: url("./background1.png");
+  background: url("/public/background1.png");
 }
 
 .right-message-encrypt {
