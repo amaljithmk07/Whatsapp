@@ -127,6 +127,7 @@ const Mainpage = () => {
                 src={`/upload/${data.profile}`}
                 className="left-chat-profile"
               />
+
               <div className="left-chat-name-sec">
                 <div className="left-chat-name">{data.name}</div>
                 <div className="left-chat-msg-tick">
@@ -144,8 +145,9 @@ const Mainpage = () => {
               </div>
             </div>
           ))}
-        </div>
 
+          </div>
+          
         {/* ////////////////////////////////////////// */}
         <div className="right-body">
           <div className="right-navbar-sec">
