@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URI from "../constent/Constent";
 const Register = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(); //preview Uploaded images
@@ -40,7 +41,8 @@ const Register = () => {
     formData.append("password", formInput.password);
 
     axios
-      .post(`http://localhost:2222/api/register/`, formData)
+      // .post(`http://localhost:2222/api/register/`, formData)
+      .post(`${BASE_URI}/api/register/`, formData)
       .then((data) => {
         console.log(data);
         navigate("/");

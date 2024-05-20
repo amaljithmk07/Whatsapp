@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Mainpage.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import BASE_URI from "../constent/Constent";
 const Mainpage = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
@@ -20,7 +21,8 @@ const Mainpage = () => {
   useEffect(() => {
     // logged in user profile view
     axios
-      .get(`http://localhost:2222/api/user/profile-view/${currentuserId}`)
+      // .get(`http://localhost:2222/api/user/profile-view/${currentuserId}`)
+      .get(`${BASE_URI}/api/user/profile-view/${currentuserId}`)
       .then((data) => {
         setProfileview(data.data.data);
       })
@@ -30,7 +32,8 @@ const Mainpage = () => {
 
     ///for available users
     axios
-      .get(`http://localhost:2222/api/user/available-user`)
+      // .get(`http://localhost:2222/api/user/available-user`)
+      .get(`${BASE_URI}/api/user/available-user`)
       .then((data) => {
         setUsersprofile(data.data.data);
         // console.log(data.data.data);
@@ -52,7 +55,8 @@ const Mainpage = () => {
 
   const selectUserforChat = (id) => {
     axios
-      .get(`http://localhost:2222/api/user/select-user-for-chat/${id}`)
+      // .get(`http://localhost:2222/api/user/select-user-for-chat/${id}`)
+      .get(`${BASE_URI}/api/user/select-user-for-chat/${id}`)
       .then((data) => {
         setSelectuser(data.data.data);
       })
@@ -74,12 +78,13 @@ const Mainpage = () => {
   const messageSendHandler = (id) => {
     axios
       .post(
-        `http://localhost:2222/api/user/send-message/${id}/${currentuserId}`,
+        // `http://localhost:2222/api/user/send-message/${id}/${currentuserId}`,
+        `${BASE_URI}/api/user/send-message/${id}/${currentuserId}`,
         messagestate
       )
       .then((data) => {
-        console.log(data.data.data.message);
-        setMessagedisplay(data.data.data.message);
+        console.log(data.data.data);
+        setMessagedisplay(data.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -176,9 +181,20 @@ const Mainpage = () => {
             </div>
 
             <div className="right-message-today">TODAY</div>
-            {messageDisplay ? (
-              <div className="right-message-today">{messageDisplay}</div>
-            ) : null}
+            <div className="right-message-receive-area">
+              {messageDisplay ? (
+                <div className="right-message-box-time-sec">
+                  <div className="right-message-box">
+                    {messageDisplay.message}
+                  </div>
+                  <div className="right-message-time">
+                    {messageDisplay.time}{" "}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
           <div className="right-text-body-sec">
             <img src="paper-pin.png" alt="" className="right-text-body-pin" />

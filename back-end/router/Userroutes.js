@@ -93,10 +93,21 @@ userrroutes.post("/send-message/:id/:currentuser", async (req, res) => {
     console.log(req.params.id);
     console.log(req.params.currentuser);
     console.log(req.body.message);
+
+    ///fetching sending time
+
+    var now = new Date();
+
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    const currenttime = hours.toString() + ":" + minutes.toString();
+    console.log(currenttime);
     const message = {
       sender_login_id: req.params.currentuser,
       receiver_login_id: req.params.id,
       message: req.body.message,
+      time: currenttime,
     };
 
     const Data = await userDB(message).save();

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URI from "../constent/Constent";
 const Login = () => {
   const navigate = useNavigate();
   const [loginformInput, setLoginForminput] = useState([]); //Login form Input Handler
@@ -19,7 +20,8 @@ const Login = () => {
     e.preventDefault();
     
     axios
-      .post(`http://localhost:2222/api/login/`, loginformInput)
+      // .post(`http://localhost:2222/api/login/`, loginformInput)
+      .post(`${BASE_URI}/api/login/`, loginformInput)
       .then((data) => {
         console.log(data);
         sessionStorage.setItem("token", data.data.token);

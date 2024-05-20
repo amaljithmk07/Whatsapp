@@ -13,6 +13,9 @@ const userschema = new mongoose.Schema({
   message: {
     type: String,
   },
+  time: {
+    type: String,
+  },
 });
 const Data = mongoose.model("user_DB", userschema);
 module.exports = Data;
