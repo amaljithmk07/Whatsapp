@@ -3,7 +3,10 @@ import "./Register.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import BASE_URI from "../constant/Constant";
+import Loader from "../Loader/Loader";
 const Register = () => {
+  const [loader, setLoader] = useState(false); //loader
+
   const navigate = useNavigate();
   const [file, setFile] = useState(); //preview Uploaded images
 
@@ -33,6 +36,7 @@ const Register = () => {
   /////form data submit
   const formDataSubmit = (e) => {
     e.preventDefault();
+    setLoader(true);
     const formData = new FormData();
 
     formData.append("profile", formInput.profile);
@@ -44,74 +48,87 @@ const Register = () => {
       // .post(`http://localhost:2222/api/register/`, formData)
       .post(`${BASE_URI}/api/register/`, formData)
       .then((data) => {
+        setLoader(false);
         console.log(data);
         navigate("/");
       })
       .catch((err) => {
+        setLoader(false);
         console.log(err);
       });
   };
   return (
     <div>
       <div className="register-main-body">
-        <div className="register-sub-body">
-          <form
-            action=""
-            className="register-form"
-            encType="multipart/formdata"
-          >
-            <div className="register-form-title">REGISTER</div>
+        {loader == false ? (
+          <>
+            <div className="register-sub-body">
+              <form
+                action=""
+                className="register-form"
+                encType="multipart/formdata"
+              >
+                <div className="register-form-title">REGISTER</div>
 
-            <input
-              type="file"
-              id="fileupload"
-              hidden
-              name="profile"
-              onChange={(e) => {
-                formPhoto(e);
-                photopreview(e);
-              }}
-            />
-            <label htmlFor="fileupload">
-              <img
-                src={file ? file : "./profile-upload.jpg"}
-                // src={"./profile-upload.jpg"}
-                alt=""
-                className="register-form-file-upload"
-              />
-            </label>
-            <input
-              type="text"
-              name="name"
-              className="register-form-input"
-              placeholder="Username"
-              onChange={formData}
-            />
-            <input
-              type="text"
-              name="email"
-              className="register-form-input"
-              placeholder="Email"
-              onChange={formData}
-            />
-            <input
-              type="password"
-              name="password"
-              className="register-form-input"
-              placeholder="Password"
-              onChange={formData}
-            />
-            <button className="register-form-btn" onClick={formDataSubmit}>
-              Submit
-            </button>
-          </form>
-          <div className="register-register-link">
-            Already a User ?
-            <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-              Login Now
-            </Link>
-          </div>
-        </div>
+                <input
+                  type="file"
+                  id="fileupload"
+                  hidden
+                  name="profile"
+                  onChange={(e) => {
+                    formPhoto(e);
+                    photopreview(e);
+                  }}
+                />
+                <label htmlFor="fileupload">
+                  <img
+                    src={file ? file : "./profile-upload.jpg"}
+                    // src={"./profile-upload.jpg"}
+                    alt=""
+                    className="register-form-file-upload"
+                  />
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  className="register-form-input"
+                  placeholder="Username"
+                  onChange={formData}
+                />
+                <input
+                  type="text"
+                  name="email"
+                  className="register-form-input"
+                  placeholder="Email"
+                  onChange={formData}
+                />
+                <input
+                  type="password"
+                  name="password"
+                  className="register-form-input"
+                  placeholder="Password"
+                  onChange={formData}
+                />
+                <button className="register-form-btn" onClick={formDataSubmit}>
+                  Submit
+                </button>
+              </form>
+              <div className="register-register-link">
+                Already a User ?
+                <Link
+                  to={"/"}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  Login Now
+                </Link>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <Loader />
+          </>
+        )}
       </div>
     </div>
   );
